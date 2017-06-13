@@ -5,7 +5,7 @@ function BuildManifestPlugin() {}
 
 BuildManifestPlugin.prototype.apply = function (compiler) {
 	compiler.plugin('emit', (compiler, callback) => {
-		let stats = compiler.getStats();
+
 		let manifest = JSON.stringify(compiler.getStats().toJson().assetsByChunkName);
 
 		compiler.assets['manifest.json'] = {

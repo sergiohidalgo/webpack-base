@@ -11,8 +11,9 @@ var inProduction = (process.env.NODE_ENV == 'production');
 
 module.exports = {
 	entry: {
-		app: ['./src/main.js', './src/bootstrap/bootstrap', './src/bootstrap/import.sass', './src/main.sass'],
-		vendor: ['jquery', 'tether', 'bootstrap'],
+		app: ['./src/main.js', './src/main.sass'],
+		bootstrap : ['./src/bootstrap/bootstrap', './src/bootstrap/import.sass', 'bootstrap'],
+		vendor: ['jquery', 'tether']
 	},
 	output: {
 		path: path.resolve(__dirname, './app'),
@@ -60,6 +61,13 @@ module.exports = {
 		]
 	},
 	plugins: [
+		new webpack.ProvidePlugin({
+			"$": "jquery",
+			"jQuery": "jquery",
+			"window.jQuery": "jquery",
+			"$.jQuery": "jquery",
+			Tether : "tether"
+		}),
 		new CleanWebpackPlugin(['app'], {
 			root: __dirname,
 			verbose: true,
@@ -69,12 +77,18 @@ module.exports = {
 		new BuildManifestPlugin(),
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
-			minify : { collapseWhitespace : inProduction}
+			minify : { collapseWhitespace : inProduction},
+			chunksSortMode: function (chunk1, chunk2) {
+				let orders = ['vendor', 'bootstrap', 'app'];
+				let order1 = orders.indexOf(chunk1.names[0]);
+				let order2 = orders.indexOf(chunk2.names[0]);
+				return order1 - order2;
+			}
 		}),
 		new ExtractTextPlugin('[name].[chunkhash].css'),
-		new webpack.LoaderOptionsPlugin({
-			minimize: inProduction
-		}),
+		// new webpack.LoaderOptionsPlugin({
+		// 	minimize: inProduction
+		// }),
 		new PurifyCSSPlugin({
 			paths: glob.sync(path.join(__dirname, 'src/index.html')),
 			minimize: inProduction

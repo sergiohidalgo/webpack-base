@@ -4,23 +4,17 @@
 [![Build Status](https://travis-ci.org/bensmithett/webpack-css-example.svg?branch=master)](https://travis-ci.org/bensmithett/webpack-css-example)
 [![Greenkeeper badge](https://badges.greenkeeper.io/bensmithett/webpack-css-example.svg)](https://greenkeeper.io/)
 
-# Webpack CSS Example
-
-Example repo showing how to automatically generate a CSS bundle from explicitly required Sass source with Webpack.
-
-:sparkles: [**Read the blog post!**](http://bensmithett.com/smarter-css-builds-with-webpack/) :sparkles:
+# Webpack Base
 
 ## Running
+Download dependences: `npm install`
+- Build files for debug:
+    - `npm run dev`
+- Build files for debug and watch changed files:
+    - `npm run watch`
+- Build minified files for production:
+    - `npm run production`
 
-- `yarn install` (or `npm install`)
-- `yarn run build` (or `npm run build`)
-- Take a look at the generated CSS in `build/`
-
-## Contributing
-
-Please adhere to the existing code style. JavaScript that doesn't comply with [standard](http://standardjs.com/) will cause the build to fail.
-
-All issues, pull requests & code contributions must comply with the [Contributor Code of Conduct](./CODE_OF_CONDUCT.md)
 
 ## License
 
